@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esteh Ibukota Ramadhan</title>
+
+    <!-- 1. PRELOAD GAMBAR PERTAMA: Agar didownload duluan sebelum CSS/JS -->
+    <link rel="preload" as="image" href="/assets/1.webp">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-color: #3ce73c;
+            --bg-light: #fff;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+        }
+
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--bg-light);
+            overflow-x: hidden;
+            font-family: 'Poppins', Arial, sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* Scroll Smooth untuk slide ke bawah */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .image-stack-wrapper {
+            width: 100%;
+            margin: 0 auto;
+            max-width: 450px;
+            background: var(--bg-light);
+            box-shadow: 0 0 20px var(--shadow-light);
+            /* Mencegah layout shift */
+            min-height: 100vh; 
+        }
+
+        /* OPTIMASI GAMBAR: Hapus opacity: 0 dan transition */
+        .image-stack-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            pointer-events: none;
+            /* content-visibility: auto membantu browser me-render hanya yang terlihat */
+            content-visibility: auto; 
+        }
+
+        /* CSS BUTTON */
+        .image-button-container {
+            position: relative;
+            width: 100%;
+            line-height: 0;
+            scroll-margin-top: 20px;
+        }
+
+        .overlay-button-link {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: block;
+            transition: transform 0.1s ease-out; /* Percepat animasi hover */
+        }
+
+        .overlay-button-link:hover {
+            transform: translateX(-50%) scale(1.05);
+        }
+
+        .overlay-button-img {
+            pointer-events: auto !important;
+            cursor: pointer;
+        }
+
+        /* Posisi Button */
+        .button-style-1 { bottom: -90%; width: 50%; max-width: 210px; }
+        .button-style-2 { bottom: -220%; width: 50%; max-width: 210px; }
+        .button-style-3 { bottom: 5%; width: 50%; max-width: 240px; }
+        .button-style-4 { bottom: -3%; width: 60%; max-width: 250px; }
+
+        @media (min-width: 768px) {
+            body {
+                display: flex;
+                justify-content: center;
+                background-color: #f5f7fa;
+            }
+        }
+
+        /* Slideshow CSS (Disederhanakan) */
+        .slideshow-container { position: relative; max-width: 100%; overflow: hidden; }
+        .slideshow-container .mySlides { display: none; width: 100%; }
+        .slideshow-container .mySlides img { width: 100%; display: block; }
+        
+        .dot-container {
+            text-align: center; padding: 10px 0; position: absolute; bottom: 5px; width: 100%; z-index: 5;
+        }
+        .dot {
+            height: 10px; width: 10px; margin: 0 4px; background-color: rgba(255,255,255,0.5);
+            border-radius: 50%; display: inline-block;
+        }
+        .dot.active { background-color: var(--primary-color); }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="image-stack-wrapper">
+        <!-- GAMBAR 1: fetchpriority="high" agar diprioritaskan browser -->
+        <img src="/assets/1.webp" alt="Info 1" fetchpriority="high" decoding="async">
+
+        <!-- GAMBAR 2: loading="eager" karena mungkin terlihat di layar HP besar -->
+        <div class="image-button-container">
+            <img src="/assets/2.webp" alt="Info 2" loading="eager" decoding="async">
+            <!-- Button ke Gambar 4 -->
+            <a href="#gambar4" class="overlay-button-link button-style-1">
+                <img src="/assets/button/button 1.webp" class="overlay-button-img" alt="Tombol 1">
+            </a>
+        </div>
+
+        <!-- Sisanya pakai loading="lazy" -->
+        <img src="/assets/3.webp" alt="Info 3" loading="lazy" decoding="async">
+
+        <!-- GAMBAR 4 (Target Button 1) -->
+        <div id="gambar4" class="image-button-container">
+            <img src="/assets/4.webp" alt="Info 4" loading="lazy" decoding="async">
+            <!-- Button ke Gambar 8 -->
+            <a href="#gambar8" class="overlay-button-link button-style-2">
+                <img src="/assets/button/button 2.webp" class="overlay-button-img" alt="Tombol 2">
+            </a>
+        </div>
+        
+        <img src="/assets/5.webp" alt="Info 5" loading="lazy" decoding="async">
+
+        <div class="image-button-container">
+            <img src="/assets/6.webp" alt="Info 6" loading="lazy" decoding="async">
+            <a href="#testimoni" class="overlay-button-link button-style-3"></a>
+        </div>
+        
+        <div id="testimoni">
+            <img src="/assets/7.webp" alt="Info 7" loading="lazy" decoding="async">
+
+            <!-- GAMBAR 8 (Target Button 2) -->
+            <div id="gambar8" class="image-button-container">
+                <img src="/assets/8.webp" alt="Info 8" loading="lazy" decoding="async">
+                <a href="https://paketkemitraan.biz.id/p/esteh-ibukota" class="overlay-button-link button-style-4" target="_blank">
+                    <img src="/assets/button/button 4.webp" class="overlay-button-img" alt="Hubungi">
+                </a>
+            </div>
+
+            <img src="/assets/9.webp" alt="Info 9" loading="lazy" decoding="async">
+        </div>
+
+    </div>
+
+    <script>
+        // SCRIPT DIOPTIMALKAN: Menghapus IntersectionObserver untuk gambar biasa.
+        // Hanya menyisakan logic slideshow.
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            // Hapus logika load image fade-in (JS blocking) agar load instan via HTML native.
+
+            const slideshows = {
+                1: { container: document.getElementById('slideshow1'), index: 1, timer: null, interval: 5000 },
+                2: { container: document.getElementById('slideshow2'), index: 1, timer: null, interval: 5000 }
+            };
+
+            function setupSlideshow(num) {
+                const s = slideshows[num];
+                if (!s || !s.container) return;
+                s.slides = s.container.getElementsByClassName('mySlides');
+                if (s.slides.length === 0) return;
+                const dotsContainer = s.container.querySelector('.dot-container');
+                if (dotsContainer) {
+                    dotsContainer.innerHTML = '';
+                    for (let i = 0; i < s.slides.length; i++) {
+                        const dot = document.createElement('span');
+                        dot.classList.add('dot');
+                        dot.onclick = () => currentSlide(num, i + 1);
+                        dotsContainer.appendChild(dot);
+                    }
+                    s.dots = dotsContainer.getElementsByClassName('dot');
+                }
+                showSlides(num);
+                startAutoSlide(num);
+            }
+
+            function showSlides(num, n) {
+                const s = slideshows[num];
+                if (!s || s.slides.length === 0) return;
+                if (n !== undefined) s.index = n;
+                if (s.index > s.slides.length) s.index = 1;
+                if (s.index < 1) s.index = s.slides.length;
+                for (let i = 0; i < s.slides.length; i++) { s.slides[i].style.display = 'none'; }
+                if (s.dots) { for (let i = 0; i < s.dots.length; i++) { s.dots[i].classList.remove('active'); } }
+                s.slides[s.index - 1].style.display = 'block';
+                if (s.dots) { s.dots[s.index - 1].classList.add('active'); }
+            }
+
+            function startAutoSlide(num) {
+                const s = slideshows[num];
+                if (!s || s.timer) return;
+                s.timer = setInterval(() => { s.index++; showSlides(num); }, s.interval);
+            }
+
+            window.currentSlide = (num, n) => { 
+                const s = slideshows[num];
+                if (s && s.timer) { clearInterval(s.timer); s.timer = null; }
+                showSlides(num, n); 
+            };
+
+            // Setup slideshow jika ada (di kode ini tidak ada HTML slideshow, tapi saya simpan fungsinya jika nanti dipakai)
+            setupSlideshow(1);
+            setupSlideshow(2);
+        });
+    </script>
+</body>
+</html>
